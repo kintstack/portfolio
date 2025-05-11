@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #2a5298;
+            --secondary-color: #4e84db;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --success-color: #5cb85c;
+            --error-color: #d9534f;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            width: 100%;
+        }
+
+        h1, h2, h3 {
+            font-weight: 300;
+            line-height: 1.2;
+            margin: 10px 0;
+        }
+        
+        /* Utility Classes */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+            overflow: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 30px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.02);
+        }
+        
+        .btn-dark {
+            background: var(--dark-color);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        
+        .py-1 { padding: 1rem 0; }
+        .py-2 { padding: 2rem 0; }
+        .py-3 { padding: 3rem 0; }
+        
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        /* Header */
+        #main-header {
+            background-color: var(--dark-color);
+            color: #fff;
+        }
+        
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        #navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        #navbar ul {
+            display: flex;
+        }
+        
+        #navbar ul li a {
+            padding: 1rem;
+            margin: 0 0.5rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        #navbar ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Showcase */
+        #showcase {
+            height: 100vh;
+            background: url('/api/placeholder/1200/800') no-repeat center center/cover;
+            color: #fff;
+            position: relative;
+        }
+        
+        #showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        #showcase .showcase-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        
+        #showcase .showcase-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        #showcase .showcase-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        /* About */
+        #about {
+            padding: 3rem 0;
+        }
+        
+        #about .about-img {
+            height: 100%;
+        }
+        
+        /* Skills */
+        #skills {
+            background: var(--light-color);
+            padding: 3rem 0;
+        }
+        
+        #skills h2 {
+            margin-bottom: 2rem;
+        }
+        
+        .skill {
+            margin-bottom: 1rem;
+        }
+        
+        .skill h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress {
+            height: 10px;
+            background: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress div {
+            height: 100%;
+            background: var(--primary-color);
+        }
+        
+        /* Projects */
+        #projects {
+            padding: 3rem 0;
+        }
+        
+        #projects h2 {
+            margin-bottom: 2rem;
+        }
+        
+        .project {
+            background: #f4f4f4;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .project:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project .project-content {
+            padding: 1.5rem;
+        }
+        
+        /* Contact */
+        #contact {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 3rem 0;
+        }
+        
+        #contact h2 {
+            margin-bottom: 2rem;
+        }
+        
+        #contact form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        #contact form .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        #contact form label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        #contact form input,
+        #contact form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        #contact form textarea {
+            height: 200px;
+        }
+        
+        #contact form input:focus,
+        #contact form textarea:focus {
+            outline: none;
+            border: 1px solid var(--primary-color);
+        }
+        
+        /* Footer */
+        #main-footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        #main-footer a {
+            color: var(--secondary-color);
+        }
+        
+        /* Social */
+        .social {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .social i {
+            margin: 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Mobile */
+        @media(max-width: 768px) {
+            .grid,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            #navbar {
+                flex-direction: column;
+            }
+            
+            #navbar ul {
+                padding: 0.5rem;
+            }
+            
+            #showcase .showcase-content h1 {
+                font-size: 3rem;
+            }
+            
+            #showcase .showcase-content p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <nav id="navbar">
+            <h1 class="logo"><a href="#showcase">My Portfolio</a></h1>
+            <ul>
+                <li><a href="#showcase">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Showcase -->
+    <section id="showcase">
+        <div class="showcase-content">
+            <h1>Welcome To My Portfolio</h1>
+            <p>Web Developer & Designer creating modern and responsive websites for businesses</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-2">
+        <div class="container">
+            <h2 class="text-center">About Me</h2>
+            <div class="grid">
+                <div class="about-img">
+                    <img src="/api/placeholder/600/400" alt="My photo">
+                </div>
+                <div>
+                    <h3>Your Name</h3>
+                    <p>Web Developer & Designer</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quibusdam ratione officia hic molestias veniam beatae. Voluptatem cumque eius quisquam.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quibusdam ratione officia hic molestias veniam beatae. Voluptatem cumque eius quisquam.</p>
+                    <a href="#contact" class="btn btn-dark">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-2">
+        <div class="container">
+            <h2 class="text-center">Technical Skills</h2>
+            <div class="grid grid-3">
+                <div class="skill">
+                    <h4>HTML & CSS</h4>
+                    <div class="progress"><div style="width:90%"></div></div>
+                </div>
+                <div class="skill">
+                    <h4>JavaScript</h4>
+                    <div class="progress"><div style="width:80%"></div></div>
+                </div>
+                <div class="skill">
+                    <h4>React</h4>
+                    <div class="progress"><div style="width:70%"></div></div>
+                </div>
+                <div class="skill">
+                    <h4>Node.js</h4>
+                    <div class="progress"><div style="width:60%"></div></div>
+                </div>
+                <div class="skill">
+                    <h4>MongoDB</h4>
+                    <div class="progress"><div style="width:65%"></div></div>
+                </div>
+                <div class="skill">
+                    <h4>UI/UX Design</h4>
+                    <div class="progress"><div style="width:75%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-2">
+        <div class="container">
+            <h2 class="text-center">My Projects</h2>
+            <div class="grid grid-3">
+                <!-- Project 1 -->
+                <div class="project">
+                    <img src="/api/placeholder/400/300" alt="Project 1">
+                    <div class="project-content">
+                        <h3>E-commerce Website</h3>
+                        <p>A full-stack e-commerce site with payment integration</p>
+                        <div class="flex">
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project">
+                    <img src="/api/placeholder/400/300" alt="Project 2">
+                    <div class="project-content">
+                        <h3>Social Network</h3>
+                        <p>A social media platform built with React and Node.js</p>
+                        <div class="flex">
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project">
+                    <img src="/api/placeholder/400/300" alt="Project 3">
+                    <div class="project-content">
+                        <h3>Portfolio Website</h3>
+                        <p>A responsive portfolio website using HTML, CSS and JavaScript</p>
+                        <div class="flex">
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-2">
+        <div class="container">
+            <h2 class="text-center">Contact Me</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="social">
+                <a href="#"><i>LinkedIn</i></a>
+                <a href="#"><i>GitHub</i></a>
+                <a href="#"><i>Twitter</i></a>
+            </div>
+            <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form validation
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                if (name === '' || email === '' || message === '') {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                // Here you would typically send the form data to a server
+                // For demonstration, we'll just show an alert
+                alert('Message sent successfully!');
+                contactForm.reset();
+            });
+        }
+
+        // Add active class to navigation based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#navbar ul li a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
